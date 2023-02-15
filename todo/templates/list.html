@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+<h1>Todo List</h1>
+{% block container %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>TITLE</td>
+      <td>DESCRIPTION</td>
+      <td>PRIORITY</td>
+      <td>STATUS</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in todos %}
+    <tr>
+      <td>{{todo.title}}</td>
+      <td>{{todo.description}}</td>
+      <td>
+        {% if todo.priority == 1 %}
+        <b class="text-danger">{{todo.get_priority_display}}</b>
+        {% elif todo.priority == 2 %}
+        <b class="text-warning">{{todo.get_priority_display}}</b>
+        {% else %}
+        <b class="text-info">{{todo.get_priority_display}}</b>
+        {%endif%}
+      </td>
+      <td>
+        {% if todo.priority == 1 %}
+        <b class="text-danger">{{todo.get_status_display}}</b>
+        {% elif todo.priority == 2 %}
+        <b class="text-warning">{{todo.get_status_display}}</b>
+        {% else %}
+        <b class="text-info">{{todo.get_status_display}}</b>
+        {%endif%}
+      </td>
+      <td>
+        <a href="/update/{{todo.id}}">Update<a>
+        <a href="/delete/{{todo.id}}" onclick="return confirm('Are you sure?')">Delete<a>
+      </td>
+      
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock container %}
